@@ -2,6 +2,11 @@
 
 Fungsi saat ini adalah mengubah CS ke AST, dan AST ke CS
 
+Masuk ke folder `quest`
+
+1. `parse.js` utk parsing CS ke AST
+2. `generate.js` utk generate AST ke CS
+
 ### CS to AST
 
 ```sql
@@ -43,3 +48,5 @@ then
   claim 15 assets.Point
   claim 15 assets.EXP
 ```
+
+Berapa sample spesifikasi quest completion ada di folder `quest/data/cs`
