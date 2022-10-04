@@ -1,0 +1,9 @@
+context
+    games.Thetan
+    Message
+
+if 
+	Thetan.players contains of Message.address 
+then
+	claim 10 assets.Point
+	claim 15 assets.EXP
