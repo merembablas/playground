@@ -6,15 +6,15 @@ Fungsi saat ini adalah mengubah CS ke AST, dan AST ke CS
 
 ```sql
 context
-    games.Thetan
-    Message
+  games.Thetan
+  Message
 
 if
-	Thetan.players contains of Message.address
-    Thetan.ranking > 11
+  Thetan.players contains of Message.address
+  Thetan.ranking > 11
 then
-	claim 10 assets.Point
-	claim 15 assets.EXP
+  claim 10 assets.Point
+  claim 15 assets.EXP
 
 
 ```
