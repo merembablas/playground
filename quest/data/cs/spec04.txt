@@ -1,0 +1,12 @@
+context
+    publishers.Play3
+    assets.Point
+	assets.EXP
+
+if 
+    video watched category thetan greater than 5
+    quiz cleared category thetan greater than 3
+
+then
+	claim 15 assets.Point
+	claim 15 assets.EXP

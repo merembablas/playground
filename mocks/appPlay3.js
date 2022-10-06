@@ -2,48 +2,83 @@ const express = require('express')
 const app = express()
 const port = 8002
 
-app.get('/videos/:id', (req, res) => {
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'success',
+  })
+})
+
+app.get('/course', (req, res) => {
   let result = {}
-  switch (req.params.id) {
-    case '1':
-      result = {
-        title: 'Course 01',
-        watchers: [
-          { userId: 5, username: 'Jon', address: '0xAAA' },
-          { userId: 6, username: 'jane', address: '0xBBB' },
-        ],
-        duration: 1000,
-      }
+  switch (req.query.category) {
+    case 'thetan':
+      result = [
+        {
+          title: 'Course 01',
+          watchers: [
+            { userId: 5, username: 'Jon', address: '0xAAA' },
+            { userId: 6, username: 'jane', address: '0xBBB' },
+          ],
+          duration: 1000,
+        },
+        {
+          title: 'Course 02',
+          watchers: [{ userId: 6, username: 'jane', address: '0xBBB' }],
+          duration: 1000,
+        },
+        {
+          title: 'Course 03',
+          watchers: [
+            { userId: 5, username: 'Jon', address: '0xAAA' },
+            { userId: 6, username: 'jane', address: '0xBBB' },
+          ],
+          duration: 1000,
+        },
+      ]
       break
-    case '2':
-      result = {
-        title: 'Course 02',
-        watchers: [{ userId: 6, username: 'jane', address: '0xBBB' }],
-        duration: 1000,
-      }
+    case 'blockchain':
+      result = [
+        {
+          title: 'Course 04',
+          watchers: [{ userId: 6, username: 'jane', address: '0xBBB' }],
+          duration: 1000,
+        },
+      ]
       break
     default:
   }
   res.json(result)
 })
 
-app.get('/quiz/:id', (req, res) => {
+app.get('/quiz', (req, res) => {
   let result = {}
-  switch (req.params.id) {
-    case '1':
-      result = {
-        title: 'Quiz Course 01',
-        finisher: [
-          { userId: 5, username: 'Jon', address: '0xAAA' },
-          { userId: 6, username: 'jane', address: '0xBBB' },
-        ],
-      }
+  switch (req.query.category) {
+    case 'thetan':
+      result = [
+        {
+          title: 'Quiz Course 01',
+          finisher: [
+            { userId: 5, username: 'Jon', address: '0xAAA' },
+            { userId: 6, username: 'jane', address: '0xBBB' },
+          ],
+        },
+        {
+          title: 'Quiz Course 02',
+          finisher: [
+            { userId: 5, username: 'Jon', address: '0xAAA' },
+            { userId: 6, username: 'jane', address: '0xBBB' },
+            { userId: 7, username: 'jane', address: '0xCCC' },
+          ],
+        },
+      ]
       break
-    case '2':
-      result = {
-        title: 'Quiz Course 02',
-        finisher: [{ userId: 6, username: 'jane', address: '0xBBB' }],
-      }
+    case 'blockchain':
+      result = [
+        {
+          title: 'Quiz Course 02',
+          finisher: [{ userId: 6, username: 'jane', address: '0xBBB' }],
+        },
+      ]
       break
     default:
   }

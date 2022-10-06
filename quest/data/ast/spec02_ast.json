@@ -5,7 +5,9 @@
     {
       "concept": "Context",
       "values": [
-        { "concept": "Pipeline", "settings": { "name": "games.Thetan" } }
+        { "concept": "Pipeline", "settings": { "name": "games.Thetan" } },
+        { "concept": "Pipeline", "settings": { "name": "assets.Point" } },
+        { "concept": "Pipeline", "settings": { "name": "assets.EXP" } }
       ]
     },
     {
@@ -14,15 +16,20 @@
         {
           "concept": "Rule",
           "settings": {
-            "name": ">",
+            "name": "greater than",
             "arguments": [
               {
                 "concept": "Attribute",
-                "settings": { "name": "Thetan.ranking", "type": "Number" }
+                "settings": {
+                  "name": "gTHC earned",
+                  "type": "",
+                  "filters": {},
+                  "initialValue": ""
+                }
               },
               {
                 "concept": "Number",
-                "settings": { "type": "BigInt", "value": "11" }
+                "settings": { "type": "BigInt", "value": "249" }
               }
             ]
           }
@@ -41,7 +48,10 @@
                 "concept": "Number",
                 "settings": { "type": "BigInt", "value": "100" }
               },
-              { "concept": "Asset", "settings": { "name": "assets.Point" } }
+              {
+                "concept": "Asset",
+                "settings": { "name": "assets.Point", "type": "" }
+              }
             ]
           }
         },
@@ -54,7 +64,10 @@
                 "concept": "Number",
                 "settings": { "type": "BigInt", "value": "150" }
               },
-              { "concept": "Asset", "settings": { "name": "assets.EXP" } }
+              {
+                "concept": "Asset",
+                "settings": { "name": "assets.EXP", "type": "" }
+              }
             ]
           }
         }

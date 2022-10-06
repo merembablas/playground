@@ -13,23 +13,26 @@ Masuk ke folder `quest`
 
 ```sql
 context
-  games.Thetan
-  Message
+  publishers.Play3
+	assets.Point
+	assets.EXP
 
 if
-  Thetan.players contains of Message.address
-  Thetan.ranking > 11
+  course finished category thetan greater than 2
+  quiz cleared category thetan type final greater than 1
+
 then
-  claim 10 assets.Point
-  claim 15 assets.EXP
+	claim 15 assets.Point
+	claim 10 assets.EXP
+
 
 
 ```
 
 ```shell
-node parser.js data/cs/spec03.txt
+node parser.js data/cs/spec01.txt
 
-{"version":1,"name":"data/cs/spec03.txt","content":[{"concept":"Context","values":[{"concept":"Pipeline","settings":{"name":"games.Thetan"}},{"concept":"Pipeline","settings":{"name":"Message"}}]},{"concept":"Condition","values":[{"concept":"Rule","settings":{"name":"contains of","arguments":[{"concept":"Attribute","settings":{"name":"Thetan.players","type":"User[]","initialValue":[]}},{"concept":"Attribute","settings":{"name":"Message.address","type":"address","initialValue":""}}]}},{"concept":"Rule","settings":{"name":">","arguments":[{"concept":"Attribute","settings":{"name":"Thetan.ranking","type":"Number"}},{"concept":"Number","settings":{"type":"BigInt","value":"11"}}]}}]},{"concept":"Consequence","values":[{"concept":"Command","settings":{"name":"claim","arguments":[{"concept":"Number","settings":{"type":"BigInt","value":"10"}},{"concept":"Asset","settings":{"name":"assets.Point"}}]}},{"concept":"Command","settings":{"name":"claim","arguments":[{"concept":"Number","settings":{"type":"BigInt","value":"15"}},{"concept":"Asset","settings":{"name":"assets.EXP"}}]}}]}]}
+{"version":1,"name":"data/cs/spec01.txt","content":[{"concept":"Context","values":[{"concept":"Pipeline","settings":{"name":"publishers.Play3"}},{"concept":"Pipeline","settings":{"name":"assets.Point"}},{"concept":"Pipeline","settings":{"name":"assets.EXP"}}]},{"concept":"Condition","values":[{"concept":"Rule","settings":{"name":"greater than","arguments":[{"concept":"Attribute","settings":{"name":"course finished","type":"","filters":{"category":"thetan"},"initialValue":""}},{"concept":"Number","settings":{"type":"BigInt","value":"2"}}]}},{"concept":"Rule","settings":{"name":"greater than","arguments":[{"concept":"Attribute","settings":{"name":"quiz cleared","type":"","filters":{"category":"thetan","type":"final"},"initialValue":""}},{"concept":"Number","settings":{"type":"BigInt","value":"1"}}]}}]},{"concept":"Consequence","values":[{"concept":"Command","settings":{"name":"claim","arguments":[{"concept":"Number","settings":{"type":"BigInt","value":"15"}},{"concept":"Asset","settings":{"name":"assets.Point","type":""}}]}},{"concept":"Command","settings":{"name":"claim","arguments":[{"concept":"Number","settings":{"type":"BigInt","value":"10"}},{"concept":"Asset","settings":{"name":"assets.EXP","type":""}}]}}]}]}
 
 ```
 
@@ -40,19 +43,48 @@ node parser.js data/cs/spec03.txt
 node generate.js data/ast/spec01_ast.json
 
 context
-  games.Thetan
-  Message
+  publishers.Play3
+	assets.Point
+	assets.EXP
 
 if
-  Thetan.players contains of Message.address
+  course finished category thetan greater than 2
+  quiz cleared category thetan type final greater than 1
 
 then
-  claim 15 assets.Point
-  claim 15 assets.EXP
+	claim 15 assets.Point
+	claim 10 assets.EXP
 ```
 
 Berapa sample spesifikasi quest completion ada di folder `quest/data/cs`
 
 ## Quest Runtime
 
-TODO
+Run the mock service in mock folder first
+
+```shell
+node appPlay3.js
+
+Example app listening on port 8002
+
+```
+
+Then run `runtime.js`, currently the request data is hardcoded inside file
+
+```node
+const requestData = {
+  quest_id: process.argv[2],
+  address: '0xBBB',
+}
+```
+
+```shell
+
+node runtime.js data/ast/spec01_ast.json
+
+{ info: 'Pipeline publishers.Play3 is ready' }
+{ info: 'Rule course finished greater than 2 is met' }
+{ info: 'Rule quiz cleared greater than 1 is met' }
+{ info: 'Do some task' }
+
+```

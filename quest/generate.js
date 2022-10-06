@@ -3,11 +3,21 @@ const fs = require('fs')
 const ast = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'))
 
 const convert = (x) => {
+  let data = ''
   if (x.concept === 'Number') {
-    return x.settings.value
+    data = x.settings.value
   } else {
-    return x.settings.name
+    if (x.settings.filters === undefined) {
+      data = x.settings.name
+    } else {
+      let filterText = Object.keys(x.settings.filters)
+        .map((y) => `${y} ${x.settings.filters[y]}`)
+        .join(' ')
+      data = `${x.settings.name} ${filterText}`
+    }
   }
+
+  return data
 }
 
 let concreteSyntax = ''

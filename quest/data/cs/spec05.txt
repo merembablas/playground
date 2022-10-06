@@ -4,7 +4,7 @@ context
 	assets.EXP
 
 if 
-	hero owned category epic greater than 5
+	kill counted level mega greater than 3
 then
 	claim 10 assets.Point
 	claim 15 assets.EXP

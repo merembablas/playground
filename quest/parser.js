@@ -1,15 +1,14 @@
 const fs = require('fs')
 const util = require('util')
 const ast = require('./ast.js')
-const registry = require('./registry.js')
+const sourceRecord = require('./record.js')
+const sourceAsset = require('./asset.js')
+
+const commands = ['claim'] // postfix operators
+const operators = ['greater than', 'less than', 'equal to'] // binary operators
 
 const content = fs.readFileSync(process.argv[2], 'utf-8')
-
-const operands = ['contains of', '>', '<', '==']
-const businessRules = ['claim']
-
 const reg = /context(?<context>[\s\S.]+)if(?<rules>[\s\S.]+)then(?<commands>[\s\S.]+)/gm
-
 const match = reg.exec(content)
 
 if (
@@ -21,58 +20,47 @@ if (
   process.exit()
 }
 
+// SET OPERATORS
+ast.setOperators(operators)
+
+// SET COMMANDS
+ast.setCommands(commands)
+
+// SET REGISTERED PIPELINE
+ast.setRecordRegistries(sourceRecord.registries)
+
+// SET REGISTERED ASSETS
+ast.setAssetRegistries(sourceAsset.registries)
+
 const contexts = match.groups.context
   .trim()
   .split(/\r?\n/)
-  .map((line) => {
-    line = line.trim()
-    if (!line in registry.services) {
-      console.error(`Pipeline ${line} not found`)
-      process.exit()
-    }
-
-    return line.trim().split(/\s+/)
-  })
+  .map(ast.buildPipeline)
   .flat()
-  .map(ast.addPipeline)
+
+// SET RECORDS CONTEXT
+contexts.forEach((x) => {
+  if (sourceRecord.records[x] !== undefined) {
+    ast.setRecord(sourceRecord.records[x])
+  } else if (sourceAsset.assets[x] !== undefined) {
+    ast.setAsset(sourceAsset.assets[x])
+  }
+})
+
+let contextNodes = contexts.map(ast.buildContext)
 
 const rules = match.groups.rules
   .trim()
   .split(/\r?\n/)
-  .map((line) => {
-    line = line.trim()
+  .map(ast.buildOperator)
+  .map(ast.buildOperand)
+  .map(ast.buildRule)
 
-    let operandFound
-    let exprLeft
-    let exprRight
-    for (let i = 0; i < operands.length; i++) {
-      if (line.includes(operands[i])) {
-        const args = line.split(operands[i])
-        operandFound = operands[i].trim()
-        exprLeft = args[0].trim()
-        exprRight = args[1].trim()
-        return { operand: operandFound, exprLeft, exprRight }
-      }
-    }
-  })
-  .map(ast.addRule)
-
-const commands = match.groups.commands
+const consequences = match.groups.commands
   .trim()
   .split(/\r?\n/)
-  .map((line) => {
-    line = line.trim()
-
-    let commandFound
-    for (let i = 0; i < businessRules.length; i++) {
-      if (line.includes(businessRules[i])) {
-        let args = line.split(/(\s+)/).filter((x) => x.trim() !== '')
-        commandFound = args.shift().trim()
-        return { command: commandFound, arguments: args }
-      }
-    }
-  })
-  .map(ast.addCommand)
+  .map(ast.buildAsset)
+  .map(ast.buildCommand)
 
 const astObj = {
   version: 1,
@@ -83,7 +71,7 @@ const astObj = {
 astObj.content.push(
   {
     concept: 'Context',
-    values: contexts,
+    values: contextNodes,
   },
   {
     concept: 'Condition',
@@ -91,7 +79,7 @@ astObj.content.push(
   },
   {
     concept: 'Consequence',
-    values: commands,
+    values: consequences,
   },
 )
 /*
@@ -99,5 +87,4 @@ console.log(
   util.inspect(astObj, { showHidden: false, depth: null, colors: true }),
 )
 */
-
 console.log(JSON.stringify(astObj))

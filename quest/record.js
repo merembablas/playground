@@ -1,66 +1,77 @@
-const players = {
-  concept: 'Attribute',
-  settings: {
-    name: 'Thetan.players',
-    type: 'User[]',
-    initialValue: [],
+const Play3Record = {
+  id: 'publishers.Play3',
+  concept: 'Record',
+  attributes: {
+    'video watched': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'quiz cleared': {
+      filters: {
+        category: 'string',
+        type: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'course finished': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
   },
 }
 
-const heroes = {
-  concept: 'Attribute',
-  settings: {
-    name: 'Thetan.heroes',
-    type: 'Hero[]',
-    initialValue: [],
+const ThetanRecord = {
+  id: 'games.Thetan',
+  concept: 'Record',
+  attributes: {
+    'hero owned': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'hero rented': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'kill counted': {
+      filters: {
+        level: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'quiz cleared': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
+    'gTHC earned': {
+      filters: {
+        category: 'string',
+        id: 'number',
+      },
+      type: 'number',
+    },
   },
 }
 
-const ranking = {
-  concept: 'Attribute',
-  settings: {
-    name: 'Thetan.ranking',
-    type: 'Number',
-  },
-}
+let records = {}
+records[Play3Record.id] = Play3Record
+records[ThetanRecord.id] = ThetanRecord
 
-const address = {
-  concept: 'Attribute',
-  settings: {
-    name: 'Message.address',
-    type: 'address',
-    initialValue: '',
-  },
-}
-
-const number = {
-  concept: 'Number',
-  settings: {
-    type: 'BigInt',
-    value: 0,
-  },
-}
-
-const assetPoint = {
-  concept: 'Asset',
-  settings: {
-    name: 'assets.Point',
-  },
-}
-
-const assetEXP = {
-  concept: 'Asset',
-  settings: {
-    name: 'assets.EXP',
-  },
-}
-
-module.exports.attributes = {
-  'Thetan.players': players,
-  'Thetan.heroes': heroes,
-  'Thetan.ranking': ranking,
-  'Message.address': address,
-  Number: number,
-  'assets.Point': assetPoint,
-  'assets.EXP': assetEXP,
-}
+module.exports.records = records
+module.exports.registries = Object.keys(records)

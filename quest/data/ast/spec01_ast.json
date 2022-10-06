@@ -5,8 +5,9 @@
     {
       "concept": "Context",
       "values": [
-        { "concept": "Pipeline", "settings": { "name": "games.Thetan" } },
-        { "concept": "Pipeline", "settings": { "name": "Message" } }
+        { "concept": "Pipeline", "settings": { "name": "publishers.Play3" } },
+        { "concept": "Pipeline", "settings": { "name": "assets.Point" } },
+        { "concept": "Pipeline", "settings": { "name": "assets.EXP" } }
       ]
     },
     {
@@ -15,23 +16,41 @@
         {
           "concept": "Rule",
           "settings": {
-            "name": "contains of",
+            "name": "greater than",
             "arguments": [
               {
                 "concept": "Attribute",
                 "settings": {
-                  "name": "Thetan.players",
-                  "type": "User[]",
-                  "initialValue": []
+                  "name": "course finished",
+                  "type": "",
+                  "filters": { "category": "thetan" },
+                  "initialValue": ""
                 }
               },
               {
+                "concept": "Number",
+                "settings": { "type": "BigInt", "value": "2" }
+              }
+            ]
+          }
+        },
+        {
+          "concept": "Rule",
+          "settings": {
+            "name": "greater than",
+            "arguments": [
+              {
                 "concept": "Attribute",
                 "settings": {
-                  "name": "Message.address",
-                  "type": "address",
+                  "name": "quiz cleared",
+                  "type": "",
+                  "filters": { "category": "thetan", "type": "final" },
                   "initialValue": ""
                 }
+              },
+              {
+                "concept": "Number",
+                "settings": { "type": "BigInt", "value": "1" }
               }
             ]
           }
@@ -50,7 +69,10 @@
                 "concept": "Number",
                 "settings": { "type": "BigInt", "value": "15" }
               },
-              { "concept": "Asset", "settings": { "name": "assets.Point" } }
+              {
+                "concept": "Asset",
+                "settings": { "name": "assets.Point", "type": "" }
+              }
             ]
           }
         },
@@ -61,9 +83,12 @@
             "arguments": [
               {
                 "concept": "Number",
-                "settings": { "type": "BigInt", "value": "15" }
+                "settings": { "type": "BigInt", "value": "10" }
               },
-              { "concept": "Asset", "settings": { "name": "assets.EXP" } }
+              {
+                "concept": "Asset",
+                "settings": { "name": "assets.EXP", "type": "" }
+              }
             ]
           }
         }

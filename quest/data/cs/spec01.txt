@@ -1,9 +1,12 @@
 context
-    games.Thetan
-    Message
+    publishers.Play3
+	assets.Point
+	assets.EXP
 
 if 
-	Thetan.players contains of Message.address 
+    course finished category thetan greater than 2
+    quiz cleared category thetan type final greater than 1
+
 then
-	claim 10 assets.Point
-	claim 15 assets.EXP
+	claim 15 assets.Point
+	claim 10 assets.EXP

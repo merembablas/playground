@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "data/cs/spec03.txt",
+  "name": "data/cs/spec05.txt",
   "content": [
     {
       "concept": "Context",
@@ -21,15 +21,15 @@
               {
                 "concept": "Attribute",
                 "settings": {
-                  "name": "hero owned",
+                  "name": "kill counted",
                   "type": "",
-                  "filters": { "category": "epic" },
+                  "filters": { "level": "mega" },
                   "initialValue": ""
                 }
               },
               {
                 "concept": "Number",
-                "settings": { "type": "BigInt", "value": "5" }
+                "settings": { "type": "BigInt", "value": "3" }
               }
             ]
           }

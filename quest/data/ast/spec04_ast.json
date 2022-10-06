@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "name": "data/cs/spec03.txt",
+  "name": "data/cs/spec04.txt",
   "content": [
     {
       "concept": "Context",
       "values": [
-        { "concept": "Pipeline", "settings": { "name": "games.Thetan" } },
+        { "concept": "Pipeline", "settings": { "name": "publishers.Play3" } },
         { "concept": "Pipeline", "settings": { "name": "assets.Point" } },
         { "concept": "Pipeline", "settings": { "name": "assets.EXP" } }
       ]
@@ -21,15 +21,36 @@
               {
                 "concept": "Attribute",
                 "settings": {
-                  "name": "hero owned",
+                  "name": "video watched",
                   "type": "",
-                  "filters": { "category": "epic" },
+                  "filters": { "category": "thetan" },
                   "initialValue": ""
                 }
               },
               {
                 "concept": "Number",
                 "settings": { "type": "BigInt", "value": "5" }
+              }
+            ]
+          }
+        },
+        {
+          "concept": "Rule",
+          "settings": {
+            "name": "greater than",
+            "arguments": [
+              {
+                "concept": "Attribute",
+                "settings": {
+                  "name": "quiz cleared",
+                  "type": "",
+                  "filters": { "category": "thetan" },
+                  "initialValue": ""
+                }
+              },
+              {
+                "concept": "Number",
+                "settings": { "type": "BigInt", "value": "3" }
               }
             ]
           }
@@ -46,7 +67,7 @@
             "arguments": [
               {
                 "concept": "Number",
-                "settings": { "type": "BigInt", "value": "10" }
+                "settings": { "type": "BigInt", "value": "15" }
               },
               {
                 "concept": "Asset",

@@ -1,8 +1,10 @@
 context
     games.Thetan
+	assets.Point
+	assets.EXP
 
 if 
-	Thetan.ranking > 11
+	gTHC earned greater than 249
 then
 	claim 100 assets.Point
 	claim 150 assets.EXP
