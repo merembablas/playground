@@ -14,16 +14,16 @@ Masuk ke folder `quest`
 ```sql
 context
   publishers.Play3
-	assets.Point
-	assets.EXP
+  assets.Point
+  assets.EXP
 
 if
   course finished category thetan greater than 2
   quiz cleared category thetan type final greater than 1
 
 then
-	claim 15 assets.Point
-	claim 10 assets.EXP
+  claim 15 assets.Point
+  claim 10 assets.EXP
 
 
 
@@ -44,16 +44,16 @@ node generate.js data/ast/spec01_ast.json
 
 context
   publishers.Play3
-	assets.Point
-	assets.EXP
+  assets.Point
+  assets.EXP
 
 if
   course finished category thetan greater than 2
   quiz cleared category thetan type final greater than 1
 
 then
-	claim 15 assets.Point
-	claim 10 assets.EXP
+  claim 15 assets.Point
+  claim 10 assets.EXP
 ```
 
 Berapa sample spesifikasi quest completion ada di folder `quest/data/cs`
