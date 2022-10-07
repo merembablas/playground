@@ -2,6 +2,8 @@ const axios = require('axios')
 const url = require('url')
 
 const play3BaseURL = 'http://localhost:8002'
+const MLBaseURL = 'http://localhost:8001'
+const thetanBaseURL = 'http://localhost:8000'
 
 const Play3Service = {
   id: 'publishers.Play3',
@@ -13,11 +15,8 @@ const Play3Service = {
     return result !== undefined ? result : { status: 500 }
   },
   'video watched': async (filters, requestData) => {
-    let result = await axios
-      .get(`${play3BaseURL}/health`)
-      .catch(function (error) {})
-
-    return result !== undefined ? result : { status: 500 }
+    // DO SOMETHING
+    return 2
   },
   'quiz cleared': async (filters, requestData) => {
     const query = new url.URLSearchParams(filters)
@@ -63,11 +62,40 @@ const Play3Service = {
 
 const ThetanService = {
   id: 'games.Thetan',
-  health: () => {},
-  'hero owned': (filters) => {},
-  'hero rented': (filters) => {},
-  'kill counted': (filters) => {},
-  'gTHC earned': (filters) => {},
+  health: async () => {
+    let result = await axios
+      .get(`${thetanBaseURL}/health`)
+      .catch(function (error) {})
+
+    return result !== undefined ? result : { status: 500 }
+  },
+  'hero owned': (filters) => {
+    // DO SOMETHING
+    return 1
+  },
+  'hero rented': (filters) => {
+    // DO SOMETHING
+    return 2
+  },
+  'kill counted': (filters) => {
+    // DO SOMETHING
+    return 50
+  },
+  'gTHC earned': (filters) => {
+    // DO SOMETHING
+    return 100
+  },
+}
+
+const MobileLegendService = {
+  id: 'games.MobileLegend',
+  health: async () => {
+    let result = await axios
+      .get(`${thetanBaseURL}/health`)
+      .catch(function (error) {})
+
+    return result !== undefined ? result : { status: 500 }
+  },
 }
 
 let services = {}

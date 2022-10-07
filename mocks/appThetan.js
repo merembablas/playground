@@ -2,6 +2,12 @@ const express = require('express')
 const app = express()
 const port = 8000
 
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'success',
+  })
+})
+
 app.get('/profile', (req, res) => {
   res.json({
     userId: 5,
